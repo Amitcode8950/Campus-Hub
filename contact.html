@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Course Registration</title>
+  <style>
+    :root {
+      --primary: #16a34a;
+      --background: #f0fdf4;
+      --text: #0f172a;
+      --error: #dc2626;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      transition: background-color 10s ease, color 10s ease;
+    }
+
+    body.submitted {
+      background-color: #000;
+      color: #fff;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: background 0.5s;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--primary);
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+
+    .hidden {
+      position: absolute;
+      left: -9999px;
+      height: 0;
+      width: 0;
+      overflow: hidden;
+    }
+
+    .error-message {
+      color: var(--error);
+      background: #fee2e2;
+      padding: 8px;
+      margin-top: 4px;
+      font-size: 0.875rem;
+      border-radius: 4px;
+      display: none;
+    }
+
+    .error-visible {
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #15803d;
+      transform: scale(1.02);
+    }
+
+    button:disabled {
+      background-color: #86efac;
+      cursor: not-allowed;
+    }
+
+    .spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .success-message {
+      background: black;
+      color: white;
+      padding: 20px;
+      border-radius: 6px;
+      max-width: 500px;
+      margin: 20px auto;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 15px 10px;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      form {
+        padding: 15px;
+      }
+      button {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <form id="courseForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+    <h2>Course Registration</h2>
+
+    <input type="hidden" name="access_key" value="ce7ab43e-8d07-4d48-844c-3876a3db1aff" />
+
+    <label for="name">Full Name *</label>
+    <input type="text" id="name" name="name" required aria-describedby="nameError" />
+    <div id="nameError" class="error-message">Enter your full name.</div>
+
+    <label for="phone">Phone Number *</label>
+    <input type="tel" id="phone" name="phone" required pattern="^\+?[\d\s\-().]{10,20}$" aria-describedby="phoneError" />
+    <div id="phoneError" class="error-message">Enter a valid phone number.</div>
+
+    <label for="email">Email ID *</label>
+    <input type="email" id="email" name="email" required aria-describedby="emailError" />
+    <div id="emailError" class="error-message">Enter a valid email address.</div>
+
+    <label for="course">Select Course *</label>
+    <select id="course" name="course" required aria-describedby="courseError">
+      <option value="" disabled selected>-- Choose a course --</option>
+      <option value="B.Tech">B.Tech</option>
+      <option value="M.Tech">M.Tech</option>
+      <option value="MBA">MBA</option>
+      <option value="B.Sc">B.Sc</option>
+      <option value="M.Sc">M.Sc</option>
+    </select>
+    <div id="courseError" class="error-message">Please select a course.</div>
+
+    <label for="message">Comments or Problems *</label>
+    <textarea id="message" name="message" required aria-describedby="messageError"></textarea>
+    <div id="messageError" class="error-message">Please enter a message.</div>
+
+    <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
+
+    <button type="submit" id="submitBtn">Submit Form</button>
+  </form>
+
+  <div id="formResponse"></div>
+
+  <footer>© Air Galaxy • Vibe Coding (Web Track — by Amit Kumar & Gopal Kaushik)</footer>
+
+  <script>
+    (function() {
+      const form = document.getElementById('courseForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const responseBox = document.getElementById('formResponse');
+
+      function showError(input, show) {
+        const error = document.getElementById(input.id + 'Error');
+        if (show) {
+          error.classList.add('error-visible');
+          input.setAttribute('aria-invalid', 'true');
+        } else {
+          error.classList.remove('error-visible');
+          input.removeAttribute('aria-invalid');
+        }
+      }
+
+      function validateInput(input) {
+        if (!input.checkValidity()) {
+          showError(input, true);
+          return false;
+        }
+        showError(input, false);
+        return true;
+      }
+
+      form.querySelectorAll('input, select, textarea').forEach(input => {
+        input.addEventListener('input', () => validateInput(input));
+      });
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        if (form.botcheck.checked) return;
+
+        const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+        let valid = true;
+        inputs.forEach(input => {
+          if (!validateInput(input)) valid = false;
+        });
+        if (!valid) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        // Remove form from screen
+        form.style.display = 'none';
+
+        // Show loading spinner/message
+        responseBox.innerHTML = `<div class="spinner">Submitting your form...</div>`;
+
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+          method: form.method,
+          body: formData,
+        })
+        .then(async res => {
+          const data = await res.json();
+          if (res.ok && data.success) {
+            document.body.classList.add('submitted');
+            responseBox.innerHTML = `<div class="success-message">🎉 Thank you! Your registration has been submitted.</div>`;
+          } else {
+            throw new Error(data.message || 'Submission failed.');
+          }
+        })
+        .catch(err => {
+          responseBox.innerHTML = `<div class="error-message error-visible">${err.message || 'There was an error. Try again.'}</div>`;
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit Form';
+          form.style.display = 'block';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

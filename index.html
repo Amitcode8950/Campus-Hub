@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Campus Hub — Starter</title>
+  <meta name="description" content="Starter pack for Vibe Coding (Web Track) — Option A: Campus Hub"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#">Campus Hub</a>
+    <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="navList">Menu</button>
+    <nav>
+      <ul id="navList" class="nav-list">
+        <li><a href="#clubs">Clubs</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <h1 class="visually-hidden">Campus Hub</h1>
+
+  <section id="events" aria-labelledby="events-title">
+    <div class="section-head">
+      <h2 id="events-title">Upcoming Events</h2>
+      <div class="controls">
+        <label for="q" class="visually-hidden">Search events</label>
+        <input id="q" type="search" placeholder="Search events or clubs">
+      </div>
+    </div>
+    <ul id="eventList" class="card-list" aria-live="polite"></ul>
+    <p id="stats" class="stats" role="status" aria-live="polite"></p>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <p></p>
+  </section>
+</main>
+<div class="about">
+  <div class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d620996.0209049822!2d76.86323061550726!3d28.953975624300387!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390db1cd94a1de7d%3A0xdcb85d73d60cbd13!2sB.M.%20Institute%20Of%20Engineering%20%26%20Technology!5e0!3m2!1sen!2sus!4v1759552978055!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+  <div class="text">BMIET is the leading technical institute of the Sonepat that grooms new gen Job ready technocrats. More than 7000 students placed in various companies with strong Alumni Network</div>
+</div>
+
+
+
+
+  <div class="contact">
+  <a href="contact.html"><i class="fa-solid fa-phone"></i>Contact me</a></div>
+
+<footer class="site-footer">
+  <small>© Air Galaxy • Vibe Coding (Web Track — by Amit kumar & Gopal Kaush)</small>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "title": "AI Study Jam",
+    "club": "Coding Club",
+    "date": "2025-10-10",
+    "desc": "Intro to ML notebooks and datasets."
+  },
+  {
+    "id": 2,
+    "title": "Web Accessibility Walkthrough",
+    "club": "Web Club",
+    "date": "2025-10-12",
+    "desc": "ARIA basics and keyboard testing."
+  },
+  {
+    "id": 3,
+    "title": "Robotics Lab Visit",
+    "club": "Robotics",
+    "date": "2025-10-14",
+    "desc": "See the bots and demos in action."
+  },
+  {
+    "id": 4,
+    "title": "Design for Developers",
+    "club": "UI/UX",
+    "date": "2025-10-16",
+    "desc": "Layout, spacing, and contrast."
+  },
+  {
+    "id" : 5,
+    "title": "Clubs",
+    "club": "culture",
+    "date": "2025-10-20",
+    "desc": "Drama Club, Photography Club"
+  },
+   {
+    "id": 6,
+    "title": "events",
+    "club": "event cube",
+    "date": "2025-10-16",
+    "desc": "Quize, Art , coding"
+  },
+ {
+    "id": 7,
+    "title": "labs",
+    "club": "lab cube",
+    "date": "2025-10-16",
+    "desc": "computer lab, cemistry lab"
+  },
+  {
+    "id": 8,
+    "title": "library",
+    "club": "Reading ",
+    "date": "2025-10-16",
+    "desc": "computer lab, Reading , Writing , Bookings"
+  }
+]
